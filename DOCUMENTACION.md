@@ -67,10 +67,12 @@ La comunicación en tiempo real se maneja en `backend/server.js` y `frontend/src
 
 ### Eventos Principales
 - **`connection`**: Se dispara cuando un usuario entra al chat.
-- **`join_chat`**: El cliente envía los datos del usuario autenticado.
-- **`send_message`**: El cliente envía un mensaje. El servidor lo guarda en la BD y lo retransmite.
-- **`receive_message`**: El servidor emite este evento a todos los clientes conectados con el nuevo mensaje.
-- **`disconnect`**: Se dispara cuando un usuario cierra la pestaña o pierde conexión.
+- **`join_chat`**: El cliente envía los datos del usuario. El servidor lo une a una sala privada con su `userId`.
+- **`update_online_users`**: Emite la lista actualizada de usuarios conectados.
+- **`send_message`**: Maneja mensajes privados (usando `receiverId`) y grupales. Si es privado, se envía a la sala del destinatario.
+- **`get_chat_history`**: Recupera los mensajes previos entre dos usuarios específicos.
+- **`receive_message`**: El cliente recibe un mensaje y decide si mostrarlo basado en el chat seleccionado.
+- **`disconnect`**: Actualiza la lista de usuarios conectados al salir.
 
 ## Autenticación
 Se utiliza **Passport.js** con la estrategia de Google.
